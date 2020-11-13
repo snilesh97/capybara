@@ -18,6 +18,12 @@
         :wishlist-icon="false"
         link-tag="router-link"
       />
+      <SfButton
+        :disabled="isProductDisabled"
+        @click.native="addToCart(product)"
+      >
+        {{ $t('Add to cart') }}
+      </SfButton>
     </SfCarouselItem>
   </SfCarousel>
 </template>
@@ -29,11 +35,15 @@ import { currentStoreView } from '@vue-storefront/core/lib/multistore';
 import { formatProductLink } from '@vue-storefront/core/modules/url/helpers';
 import { productThumbnailPath } from '@vue-storefront/core/helpers';
 import { prepareCategoryProduct } from 'theme/helpers';
+import { SfButton } from '@storefront-ui/vue';
+import AddToCart from 'src/themes/capybara/components/mixins/AddToCart.js'
 export default {
   name: 'MProductCarousel',
+  mixins: [AddToCart],
   components: {
     SfCarousel,
-    SfProductCard
+    SfProductCard,
+    SfButton
   },
   props: {
     products: {
